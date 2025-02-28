@@ -16,6 +16,7 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            white-space: pre-line; /* Garante quebra de linha automática */
         }
         h1 {
             text-align: center;
@@ -48,26 +49,13 @@
 <body>
     <div class="container">
         <h1>Restaurantes</h1>
-        <a href="{% url 'criar_restaurante' %}">Criar Novo Restaurante</a>
-        <table>
-            <thead>
-                <tr>
-                    <th>Restaurante</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for restaurante in restaurantes %}
-                    <tr>
-                        <td>{{ restaurante.nome }}</td>
-                        <td class="action-buttons">
-                            <a href="{% url 'editar_restaurante' restaurante.id %}">Editar</a>
-                            <a href="{% url 'excluir_restaurante' restaurante.id %}">Excluir</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+            {% for restaurante in restaurantes %}
+
+                <p> <b>Restaurante:</b> {{ restaurante.nome }}</p>
+                <p> <b>Descrição:</b> {{ restaurante.descricao }}</p>
+                <p> <b>Preço:</b> {{ restaurante.custo }}</p>
+
+            {% endfor %}
     </div>
 </body>
 </html>
