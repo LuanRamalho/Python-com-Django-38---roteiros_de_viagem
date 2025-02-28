@@ -66,9 +66,9 @@ def criar_destino(request, roteiro_id):
         form = DestinoForm()
     return render(request, 'roteiros/criar_destino.html', {'form': form})
 
-def listar_destinos(request):
+def listar_destinos(request, roteiro_id):
     destinos = Destino.objects.all()
-    return render(request, 'listar_destinos.html', {'destinos': destinos})
+    return render(request, 'roteiros/listar_destinos.html', {'destinos': destinos})
 
 def editar_destino(request, roteiro_id, destino_id):
     destino = get_object_or_404(Destino, id=destino_id)
@@ -107,9 +107,8 @@ def criar_ponto_turistico(request, roteiro_id):
 
 # Listar pontos turísticos de um roteiro específico
 def listar_pontos_turisticos(request, roteiro_id):
-    roteiro = get_object_or_404(Roteiro, id=roteiro_id)
-    pontos_turisticos = roteiro.pontoturistico_set.all()  # Busca pontos turísticos do roteiro
-    return render(request, 'roteiros/listar_pontos_turisticos.html', {'pontos_turisticos': pontos_turisticos, 'roteiro': roteiro})
+    ponto = PontoTuristico.objects.all()
+    return render(request, 'roteiros/listar_pontos_turisticos.html', {'ponto': ponto})
 
 # Editar um ponto turístico dentro de um roteiro
 def editar_ponto_turistico(request, roteiro_id, ponto_turistico_id):
@@ -155,10 +154,8 @@ def criar_restaurante(request, roteiro_id):
 
 # Listar restaurantes de um roteiro específico
 def listar_restaurantes(request, roteiro_id):
-    roteiro = get_object_or_404(Roteiro, id=roteiro_id)
-    restaurantes = roteiro.restaurante_set.all()  # Obtendo restaurantes do roteiro
-
-    return render(request, 'roteiros/listar_restaurantes.html', {'restaurantes': restaurantes, 'roteiro': roteiro})
+    restaurantes = Restaurante.objects.all()  # Obtendo restaurantes do roteiro
+    return render(request, 'roteiros/listar_restaurantes.html', {'restaurantes': restaurantes})
 
 # Editar um restaurante dentro de um roteiro
 def editar_restaurante(request, roteiro_id, restaurante_id):
@@ -202,20 +199,21 @@ def criar_atividade(request, roteiro_id):
 
     return render(request, 'roteiros/criar_atividade.html', {'form': form, 'roteiro': roteiro})
 
-def listar_atividades(request):
+def listar_atividades(request, roteiro_id):
     atividades = Atividade.objects.all()
-    return render(request, 'listar_atividades.html', {'atividades': atividades})
+    return render(request, 'roteiros/listar_atividades.html', {'atividades': atividades})
 
 def editar_atividade(request, roteiro_id, atividade_id):
     atividade = get_object_or_404(Atividade, id=atividade_id)
+    roteiro = get_object_or_404(Roteiro, id=roteiro_id)
     if request.method == 'POST':
         form = AtividadeForm(request.POST, instance=atividade)
         if form.is_valid():
             form.save()
-            return redirect('detalhes_destino', destino_id=atividade.destino.id)
+            return redirect('detalhes_roteiro', roteiro_id=roteiro_id)
     else:
         form = AtividadeForm(instance=atividade)
-    return render(request, 'roteiros/editar_atividade.html', {'form': form})
+    return render(request, 'roteiros/editar_atividade.html', {'form': form, 'roteiro': roteiro})
 
 def excluir_atividade(request, roteiro_id, atividade_id):
     atividade = get_object_or_404(Atividade, id=atividade_id, roteiro_id=roteiro_id)
