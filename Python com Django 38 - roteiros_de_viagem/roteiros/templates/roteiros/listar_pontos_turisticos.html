@@ -16,6 +16,7 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            white-space: pre-line; /* Garante quebra de linha automática */
         }
         h1 {
             text-align: center;
@@ -48,26 +49,11 @@
 <body>
     <div class="container">
         <h1>Pontos Turísticos</h1>
-        <a href="{% url 'criar_ponto_turistico' roteiro.id %}">Criar Novo Ponto Turístico</a>
-        <table>
-            <thead>
-                <tr>
-                    <th>Ponto Turístico</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for ponto in pontos_turisticos %}
-                    <tr>
-                        <td>{{ ponto.nome }}</td>
-                        <td class="action-buttons">
-                            <a href="{% url 'editar_ponto_turistico' ponto.id %}">Editar</a>
-                            <a href="{% url 'excluir_ponto_turistico' ponto.id %}">Excluir</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+            {% for p in ponto %}
+                <p> <b>Ponto Turístico:</b> {{ p.nome }}</p>
+                <p> <b>Descrição:</b> {{ p.descricao }}</p>
+
+            {% endfor %}
     </div>
 </body>
 </html>
