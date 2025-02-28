@@ -16,6 +16,8 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            word-wrap: break-word;
+            white-space: pre-line;
         }
         h1 {
             text-align: center;
@@ -32,6 +34,8 @@
         th, td {
             padding: 12px;
             text-align: left;
+            word-wrap: break-word;
+            white-space: pre-line;
         }
         th {
             background-color: #4CAF50;
@@ -55,31 +59,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>Lista de Destinos</h1>
-        <a href="{% url 'criar_destino' roteiro.id %}" class="btn">Adicionar Novo Destino</a>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome do Destino</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for destino in destinos %}
-                    <tr>
-                        <td>{{ destino.nome }}</td>
-                        <td>
-                            <a href="{% url 'editar_destino' destino.id %}" class="btn">Editar</a>
-                            <a href="{% url 'excluir_destino' destino.id %}" class="btn" style="background-color: #f44336;">Excluir</a>
-                        </td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td colspan="2" style="text-align: center;">Nenhum destino cadastrado.</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <h1>Destinos</h1>
+        {% for destino in destinos %}
+            <p><strong>Nome:</strong> {{ destino.nome }}</p>
+            <p><strong>Descrição:</strong> {{ destino.descricao }}</p>
+        {% empty %}
+            <p>Nenhum destino encontrado.</p>
+        {% endfor %}
     </div>
 </body>
 </html>
