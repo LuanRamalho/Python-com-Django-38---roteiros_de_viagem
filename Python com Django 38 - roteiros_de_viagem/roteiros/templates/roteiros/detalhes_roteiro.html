@@ -53,6 +53,24 @@
         .add-buttons a:hover {
             background-color: #45a049;
         }
+        .add-buttons2 {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .add-buttons2 a {
+            background-color: #7100D0;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            width: 22%;
+            box-sizing: border-box;
+        }
+        .add-buttons2 a:hover {
+            background-color: #4A00B9;
+        }
     </style>
 </head>
 <body>
@@ -67,7 +85,7 @@
         <div class="destinos">
             <h3>Destinos</h3>
             {% for destino in destinos %}
-                <p>{{ destino.nome }} - <a href="{% url 'editar_destino' roteiro.id destino.id %}">Editar</a> | <a href="{% url 'excluir_destino' roteiro.id destino.id %}">Excluir</a> | <a href="{% url 'listar_destinos' roteiro.id  %}">Ver Detalhes</a></p>
+                <p>{{ destino.nome }} - <a href="{% url 'editar_destino' roteiro.id destino.id %}">Editar</a> | <a href="{% url 'excluir_destino' roteiro.id destino.id %}">Excluir</a></p>
             {% empty %}
                 <p>Nenhum destino associado a este roteiro.</p>
             {% endfor %}
@@ -77,7 +95,7 @@
         <div class="atividades">
             <h3>Atividades</h3>
             {% for atividade in atividades %}
-                <p>{{ atividade.nome }} - {{atividade.data_atividade|date:"d/m/Y"}} <a href="{% url 'editar_atividade' roteiro.id atividade.id %}">Editar</a> | <a href="{% url 'excluir_atividade' roteiro.id atividade.id %}">Excluir</a> | <a href="{% url 'listar_atividades' roteiro.id %}">Ver Detalhes</a></p>
+                <p>{{ atividade.nome }} - {{atividade.data_atividade|date:"d/m/Y"}} <a href="{% url 'editar_atividade' roteiro.id atividade.id %}">Editar</a> | <a href="{% url 'excluir_atividade' roteiro.id atividade.id %}">Excluir</a></p>
             {% empty %}
                 <p>Nenhuma atividade associada a este roteiro.</p>
             {% endfor %}
@@ -87,7 +105,7 @@
         <div class="pontos-turisticos">
             <h3>Pontos Turísticos</h3>
             {% for ponto_turistico in pontos_turisticos %}
-                <p>{{ ponto_turistico.nome }} - <a href="{% url 'editar_ponto_turistico' roteiro.id ponto_turistico.id %}">Editar</a> | <a href="{% url 'excluir_ponto_turistico' roteiro.id ponto_turistico.id %}">Excluir</a> | <a href="{% url 'listar_pontos_turisticos' roteiro.id %}">Ver Detalhes</a></p>
+                <p>{{ ponto_turistico.nome }} - <a href="{% url 'editar_ponto_turistico' roteiro.id ponto_turistico.id %}">Editar</a> | <a href="{% url 'excluir_ponto_turistico' roteiro.id ponto_turistico.id %}">Excluir</a></p>
             {% empty %}
                 <p>Nenhum ponto turístico associado a este roteiro.</p>
             {% endfor %}
@@ -97,7 +115,7 @@
         <div class="restaurantes">
             <h3>Restaurantes</h3>
             {% for restaurante in restaurantes %}
-                <p>{{ restaurante.nome }} - <a href="{% url 'editar_restaurante' roteiro.id restaurante.id %}">Editar</a> | <a href="{% url 'excluir_restaurante' roteiro.id restaurante.id %}">Excluir</a> | <a href="{% url 'listar_restaurantes' roteiro.id %}">Ver Detalhes</a></p>
+                <p>{{ restaurante.nome }} - <a href="{% url 'editar_restaurante' roteiro.id restaurante.id %}">Editar</a> | <a href="{% url 'excluir_restaurante' roteiro.id restaurante.id %}">Excluir</a></p>
             {% empty %}
                 <p>Nenhum restaurante associado a este roteiro.</p>
             {% endfor %}
@@ -110,6 +128,18 @@
             <a href="{% url 'criar_ponto_turistico' roteiro.id %}">Adicionar Ponto Turístico</a>
             <a href="{% url 'criar_restaurante' roteiro.id %}">Adicionar Restaurante</a>
         </div>
+
+        <br>
+
+        <div class="add-buttons2">
+            <a href="{% url 'listar_destinos' roteiro.id  %}">Visualizar Destinos</a>
+            <a href="{% url 'listar_atividades' roteiro.id %}">Visualizar Atividades</a>
+            <a href="{% url 'listar_pontos_turisticos' roteiro.id %}">Visualizar Pontos Turísticos</a>
+            <a href="{% url 'listar_restaurantes' roteiro.id %}">Visualizar Restaurantes</a>
+
+
+        </div>
+
     </div>
 </body>
 </html>
