@@ -21,22 +21,40 @@
             text-align: center;
             color: #4CAF50;
         }
-        .destinos, .atividades, .pontos-turisticos, .restaurantes {
+        .section-title {
+            font-weight: bold;
+            font-size: 1.2em;
             margin-top: 20px;
+            text-decoration: underline;
         }
-        .destinos h3, .atividades h3, .pontos-turisticos h3, .restaurantes h3 {
-            color: #333;
+        .item {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
         }
-        .action-buttons a {
+        .item p {
+            margin: 5px 0;
+        }
+        .item a {
             color: #4CAF50;
             text-decoration: none;
-            margin-right: 10px;
         }
-        .action-buttons a:hover {
+        .item a:hover {
             color: #45a049;
         }
-        .add-buttons {
+        .divider {
+            border-top: 1px solid #ddd;
+            margin: 10px 0;
+        }
+        .data-section {
             margin-top: 20px;
+        }
+        .data-section p {
+            font-weight: bold;
+        }
+        .add-buttons {
+            margin-top: 40px;
             display: flex;
             justify-content: space-between;
         }
@@ -53,73 +71,61 @@
         .add-buttons a:hover {
             background-color: #45a049;
         }
-        .add-buttons2 {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .add-buttons2 a {
-            background-color: #7100D0;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            text-align: center;
-            width: 22%;
-            box-sizing: border-box;
-        }
-        .add-buttons2 a:hover {
-            background-color: #4A00B9;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>{{ roteiro.nome }}</h1>
-        <p><strong>Data de Início:</strong> {{ roteiro.data_inicio|date:"d/m/Y"  }}</p>
-        <p><strong>Data de Fim:</strong> {{ roteiro.data_fim|date:"d/m/Y"  }}</p>
-
-        <br>
-
-        <!-- Seção de Destinos -->
-        <div class="destinos">
-            <h3>Destinos</h3>
-            {% for destino in destinos %}
-                <p>{{ destino.nome }} - <a href="{% url 'editar_destino' roteiro.id destino.id %}">Editar</a> | <a href="{% url 'excluir_destino' roteiro.id destino.id %}">Excluir</a></p>
-            {% empty %}
-                <p>Nenhum destino associado a este roteiro.</p>
-            {% endfor %}
+        <div class="data-section">
+            <p>Data de Início: {{ roteiro.data_inicio|date:"d/m/Y" }}</p>
+            <p>Data de Fim: {{ roteiro.data_fim|date:"d/m/Y" }}</p>
         </div>
 
-        <!-- Seção de Atividades -->
-        <div class="atividades">
-            <h3>Atividades</h3>
-            {% for atividade in atividades %}
-                <p>{{ atividade.nome }} - {{atividade.data_atividade|date:"d/m/Y"}} <a href="{% url 'editar_atividade' roteiro.id atividade.id %}">Editar</a> | <a href="{% url 'excluir_atividade' roteiro.id atividade.id %}">Excluir</a></p>
-            {% empty %}
-                <p>Nenhuma atividade associada a este roteiro.</p>
-            {% endfor %}
-        </div>
+        <div class="section-title">Destinos</div>
+        {% for destino in destinos %}
+            <div class="item">
+                <p><strong>Nome:</strong> {{ destino.nome }} | <a href="{% url 'editar_destino' roteiro.id destino.id %}">Editar</a> | <a href="{% url 'excluir_destino' roteiro.id destino.id %}">Excluir</a></p>
+                <p><strong>Descrição:</strong> {{ destino.descricao }}</p>
+            </div>
+            <div class="divider"></div>
+        {% empty %}
+            <p>Nenhum destino associado a este roteiro.</p>
+        {% endfor %}
 
-        <!-- Seção de Pontos Turísticos -->
-        <div class="pontos-turisticos">
-            <h3>Pontos Turísticos</h3>
-            {% for ponto_turistico in pontos_turisticos %}
-                <p>{{ ponto_turistico.nome }} - <a href="{% url 'editar_ponto_turistico' roteiro.id ponto_turistico.id %}">Editar</a> | <a href="{% url 'excluir_ponto_turistico' roteiro.id ponto_turistico.id %}">Excluir</a></p>
-            {% empty %}
-                <p>Nenhum ponto turístico associado a este roteiro.</p>
-            {% endfor %}
-        </div>
+        <div class="section-title">Atividades</div>
+        {% for atividade in atividades %}
+            <div class="item">
+                <p><strong>Nome:</strong> {{ atividade.nome }} | <a href="{% url 'editar_atividade' roteiro.id atividade.id %}">Editar</a> | <a href="{% url 'excluir_atividade' roteiro.id atividade.id %}">Excluir</a></p>
+                <p><strong>Descrição:</strong> {{ atividade.descricao }}</p>
+                <p><strong>Data de Atividade:</strong> {{ atividade.data_atividade|date:"d/m/Y" }}</p>
+            </div>
+            <div class="divider"></div>
+        {% empty %}
+            <p>Nenhuma atividade associada a este roteiro.</p>
+        {% endfor %}
 
-        <!-- Seção de Restaurantes -->
-        <div class="restaurantes">
-            <h3>Restaurantes</h3>
-            {% for restaurante in restaurantes %}
-                <p>{{ restaurante.nome }} - <a href="{% url 'editar_restaurante' roteiro.id restaurante.id %}">Editar</a> | <a href="{% url 'excluir_restaurante' roteiro.id restaurante.id %}">Excluir</a></p>
-            {% empty %}
-                <p>Nenhum restaurante associado a este roteiro.</p>
-            {% endfor %}
-        </div>
+        <div class="section-title">Pontos Turísticos</div>
+        {% for ponto_turistico in pontos_turisticos %}
+            <div class="item">
+                <p><strong>Nome:</strong> {{ ponto_turistico.nome }} | <a href="{% url 'editar_ponto_turistico' roteiro.id ponto_turistico.id %}">Editar</a> | <a href="{% url 'excluir_ponto_turistico' roteiro.id ponto_turistico.id %}">Excluir</a></p>
+                <p><strong>Descrição:</strong> {{ ponto_turistico.descricao }}</p>
+            </div>
+            <div class="divider"></div>
+        {% empty %}
+            <p>Nenhum ponto turístico associado a este roteiro.</p>
+        {% endfor %}
+
+        <div class="section-title">Restaurantes</div>
+        {% for restaurante in restaurantes %}
+            <div class="item">
+                <p><strong>Nome:</strong> {{ restaurante.nome }} | <a href="{% url 'editar_restaurante' roteiro.id restaurante.id %}">Editar</a> | <a href="{% url 'excluir_restaurante' roteiro.id restaurante.id %}">Excluir</a></p>
+                <p><strong>Descrição:</strong> {{ restaurante.descricao }}</p>
+                <p><strong>Preço:</strong> R${{ restaurante.custo|floatformat:2 }}</p>
+            </div>
+            <div class="divider"></div>
+        {% empty %}
+            <p>Nenhum restaurante associado a este roteiro.</p>
+        {% endfor %}
 
         <!-- Botões para adicionar itens ao Roteiro -->
         <div class="add-buttons">
@@ -128,18 +134,6 @@
             <a href="{% url 'criar_ponto_turistico' roteiro.id %}">Adicionar Ponto Turístico</a>
             <a href="{% url 'criar_restaurante' roteiro.id %}">Adicionar Restaurante</a>
         </div>
-
-        <br>
-
-        <div class="add-buttons2">
-            <a href="{% url 'listar_destinos' roteiro.id  %}">Visualizar Destinos</a>
-            <a href="{% url 'listar_atividades' roteiro.id %}">Visualizar Atividades</a>
-            <a href="{% url 'listar_pontos_turisticos' roteiro.id %}">Visualizar Pontos Turísticos</a>
-            <a href="{% url 'listar_restaurantes' roteiro.id %}">Visualizar Restaurantes</a>
-
-
-        </div>
-
     </div>
 </body>
 </html>
