@@ -66,10 +66,6 @@ def criar_destino(request, roteiro_id):
         form = DestinoForm()
     return render(request, 'roteiros/criar_destino.html', {'form': form})
 
-def listar_destinos(request, roteiro_id):
-    destinos = Destino.objects.all()
-    return render(request, 'roteiros/listar_destinos.html', {'destinos': destinos})
-
 def editar_destino(request, roteiro_id, destino_id):
     destino = get_object_or_404(Destino, id=destino_id)
     if request.method == 'POST':
@@ -104,11 +100,6 @@ def criar_ponto_turistico(request, roteiro_id):
         form = PontoTuristicoForm()
     
     return render(request, 'roteiros/criar_ponto_turistico.html', {'form': form, 'roteiro': roteiro})
-
-# Listar pontos turísticos de um roteiro específico
-def listar_pontos_turisticos(request, roteiro_id):
-    ponto = PontoTuristico.objects.all()
-    return render(request, 'roteiros/listar_pontos_turisticos.html', {'ponto': ponto})
 
 # Editar um ponto turístico dentro de um roteiro
 def editar_ponto_turistico(request, roteiro_id, ponto_turistico_id):
@@ -152,11 +143,6 @@ def criar_restaurante(request, roteiro_id):
 
     return render(request, 'roteiros/criar_restaurante.html', {'form': form, 'roteiro': roteiro})
 
-# Listar restaurantes de um roteiro específico
-def listar_restaurantes(request, roteiro_id):
-    restaurantes = Restaurante.objects.all()  # Obtendo restaurantes do roteiro
-    return render(request, 'roteiros/listar_restaurantes.html', {'restaurantes': restaurantes})
-
 # Editar um restaurante dentro de um roteiro
 def editar_restaurante(request, roteiro_id, restaurante_id):
     roteiro = get_object_or_404(Roteiro, id=roteiro_id)
@@ -198,10 +184,6 @@ def criar_atividade(request, roteiro_id):
         form = AtividadeForm()
 
     return render(request, 'roteiros/criar_atividade.html', {'form': form, 'roteiro': roteiro})
-
-def listar_atividades(request, roteiro_id):
-    atividades = Atividade.objects.all()
-    return render(request, 'roteiros/listar_atividades.html', {'atividades': atividades})
 
 def editar_atividade(request, roteiro_id, atividade_id):
     atividade = get_object_or_404(Atividade, id=atividade_id)
